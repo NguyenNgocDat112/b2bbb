@@ -1,0 +1,6 @@
+{
+  "name": "Pinterest Header Clone",
+  "description": "A responsive, professional header component similar to Pinterest.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
