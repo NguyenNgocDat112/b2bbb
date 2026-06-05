@@ -9,12 +9,14 @@ interface EbookCardProps {
   category: string;
   description: string;
   image: string;
+  onClick?: () => void;
 }
 
-export function EbookCard({ title, category, description, image }: EbookCardProps) {
+export function EbookCard({ title, category, description, image, onClick }: EbookCardProps) {
   return (
     <motion.div 
       variants={fadeInUp}
+      onClick={onClick}
       className="flex flex-col h-full bg-white border border-gray-200 hover:shadow-lg transition-shadow duration-300 group cursor-pointer"
     >
       <div className="relative w-full aspect-[4/3] bg-gray-100 overflow-hidden">

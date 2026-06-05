@@ -108,18 +108,18 @@ export function BestSellers() {
           onMouseLeave={onMouseLeaveOrUp}
           onMouseUp={onMouseLeaveOrUp}
           onMouseMove={onMouseMove}
-          className={`flex overflow-x-auto pb-4 sm:grid sm:grid-cols-3 lg:grid-cols-5 gap-4 sm:gap-5 lg:gap-6 no-scrollbar snap-x snap-mandatory scroll-smooth touch-pan-x select-none ${
-            isDown ? "cursor-grabbing" : "cursor-grab"
+          className={`flex overflow-x-auto pb-4 sm:pb-6 gap-3 sm:gap-4 no-scrollbar touch-pan-x select-none ${
+            isDown ? "cursor-grabbing" : "cursor-grab snap-x snap-proximity"
           }`}
         >
           {products.map((product) => (
             <motion.div 
               key={product.id} 
               variants={fadeInUp}
-              className="group flex flex-col bg-white rounded-[16px] sm:rounded-[20px] overflow-hidden border border-gray-100/80 hover:border-transparent hover:shadow-[0_20px_50px_rgb(0,0,0,0.06)] transition-all duration-700 ease-[0.16,1,0.3,1] w-[42vw] xs:w-[32vw] sm:w-auto shrink-0 snap-start cursor-pointer"
+              className="group flex flex-col bg-white rounded-[10px] overflow-hidden border border-gray-100/80 hover:border-transparent hover:shadow-[0_15px_40px_rgb(0,0,0,0.08)] transition-all duration-500 ease-[0.16,1,0.3,1] w-[160px] xs:w-[200px] sm:w-[calc(33.333%-11px)] md:w-[calc(25%-12px)] lg:w-[calc(20%-13px)] shrink-0 snap-start cursor-pointer"
             >
               {/* Image Container */}
-              <div className="relative aspect-[4/5] w-full bg-[#f8f9fa] overflow-hidden border-b border-gray-50/50 pointer-events-none">
+              <div className="relative aspect-[4/3] w-full bg-[#f8f9fa] overflow-hidden border-b border-gray-50/50 pointer-events-none">
                 <Image quality={100}
                   src={product.image}
                   alt={product.name}
@@ -129,25 +129,25 @@ export function BestSellers() {
                   referrerPolicy="no-referrer"
                 />
                 {/* Subtle inner shadow for depth */}
-                <div className="absolute inset-0 ring-1 ring-inset ring-black/5 rounded-t-[16px] sm:rounded-t-[20px] z-10 pointer-events-none" />
+                <div className="absolute inset-0 ring-1 ring-inset ring-black/5 rounded-t-[10px] z-10 pointer-events-none" />
               </div>
               
               {/* Content Container */}
-              <div className="p-3 sm:p-4 md:p-5 flex flex-col flex-1 bg-white pointer-events-none">
-                <div className="mb-1.5 sm:mb-2.5">
-                  <span className="inline-block px-1.5 py-0.5 bg-[#1ca894]/10 text-[#1ca894] text-[9px] sm:text-[10px] md:text-[11px] font-bold rounded-md tracking-wider uppercase">
+              <div className="p-3 sm:p-4 flex flex-col flex-1 bg-white pointer-events-none">
+                <div className="mb-1.5">
+                  <span className="inline-block px-1.5 py-0.5 bg-[#1ca894]/10 text-[#1ca894] text-[9px] sm:text-[10px] font-bold rounded-md tracking-wider uppercase">
                     {product.promo}
                   </span>
                 </div>
-                <h3 className="font-semibold text-gray-900 text-[12px] sm:text-[14px] md:text-[15px] leading-snug mb-3 sm:mb-4 line-clamp-2 group-hover:text-[#1ca894] transition-colors duration-300">
+                <h3 className="font-semibold text-gray-900 text-[12px] sm:text-[13px] md:text-[14px] leading-snug mb-2 sm:mb-3 line-clamp-2 group-hover:text-[#1ca894] transition-colors duration-300">
                   {product.name}
                 </h3>
                 
-                <div className="mt-auto flex flex-col xs:flex-row xs:items-center gap-1 xs:gap-2 flex-wrap">
-                  <span className="text-[#a0a0a0] text-[11px] sm:text-[13px] md:text-[14px] line-through font-medium leading-none">
+                <div className="mt-auto flex flex-col xs:flex-row xs:items-center gap-1 flex-wrap">
+                  <span className="text-[#a0a0a0] text-[11px] sm:text-[12px] line-through font-medium leading-none">
                     {product.originalPrice}
                   </span>
-                  <span className="text-gray-900 font-bold text-[13px] sm:text-[15px] md:text-[16px] leading-none">
+                  <span className="text-gray-900 font-bold text-[13px] sm:text-[14px] md:text-[15px] leading-none">
                     {product.price}
                   </span>
                 </div>

@@ -36,7 +36,6 @@ export const BrandLogo = React.memo(({ logo, brandLogoText, brandSubText }: { lo
         <div className="text-[#99155d] text-[11px] lg:text-[12px] font-black tracking-widest mt-3 select-none leading-none z-10 w-full px-1 uppercase whitespace-nowrap">
           {brandLogoText}
         </div>
-    
       </div>
     </motion.div>
   );

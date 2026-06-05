@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { 
   Search, 
@@ -46,6 +46,10 @@ export default function ProductsPage() {
   // Mobile drawer filter toggle state
   const [isMobileFilterOpen, setIsMobileFilterOpen] = useState(false);
 
+  // Pagination State
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 5;
+
   // Active filter count computed
   const activeFilterCount = useMemo(() => {
     let count = 0;
@@ -64,6 +68,28 @@ export default function ProductsPage() {
     setSelectedLocation("Tất cả");
     setSelectedRating(null);
     setOnlyVerified(false);
+    setCurrentPage(1);
+  };
+
+  // Wrap filter setters to automatically reset current page
+  const handleCategoryChange = (cat: string) => {
+    setSelectedCategory(cat);
+    setCurrentPage(1);
+  };
+  
+  const handleLocationChange = (loc: string) => {
+    setSelectedLocation(loc);
+    setCurrentPage(1);
+  };
+  
+  const handleRatingChange = (rating: number | null) => {
+    setSelectedRating(rating);
+    setCurrentPage(1);
+  };
+  
+  const handleOnlyVerifiedChange = (val: boolean) => {
+    setOnlyVerified(val);
+    setCurrentPage(1);
   };
 
   // Filtered Suppliers List
@@ -102,6 +128,21 @@ export default function ProductsPage() {
     });
   }, [searchQuery, selectedCategory, selectedLocation, selectedRating, onlyVerified]);
 
+  // Paginated Suppliers List
+  const paginatedSuppliers = useMemo(() => {
+    const startIndex = (currentPage - 1) * itemsPerPage;
+    return filteredSuppliers.slice(startIndex, startIndex + itemsPerPage);
+  }, [filteredSuppliers, currentPage, itemsPerPage]);
+
+  const totalPages = Math.ceil(filteredSuppliers.length / itemsPerPage);
+
+  const handlePageChange = (newPage: number) => {
+    if (newPage >= 1 && newPage <= totalPages) {
+      setCurrentPage(newPage);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  };
+
   return (
     <div className="bg-gradient-to-br from-[#fafafb] to-[#f4f5f7] min-h-screen font-sans w-full overflow-x-hidden">
       <div className="pt-8  pb-20 px-4 sm:px-6 lg:px-10 max-w-[1500px] mx-auto w-full">
@@ -117,13 +158,13 @@ export default function ProductsPage() {
             activeFilterCount={activeFilterCount}
             resetFilters={resetFilters}
             selectedCategory={selectedCategory}
-            setSelectedCategory={setSelectedCategory}
+            setSelectedCategory={handleCategoryChange}
             selectedLocation={selectedLocation}
-            setSelectedLocation={setSelectedLocation}
+            setSelectedLocation={handleLocationChange}
             selectedRating={selectedRating}
-            setSelectedRating={setSelectedRating}
+            setSelectedRating={handleRatingChange}
             onlyVerified={onlyVerified}
-            setOnlyVerified={setOnlyVerified}
+            setOnlyVerified={handleOnlyVerifiedChange}
           />
         </div>
 
@@ -160,9 +201,94 @@ export default function ProductsPage() {
                 exit={{ opacity: 0 }}
                 className="space-y-6 min-w-0"
               >
-                {filteredSuppliers.map((supplier, idx) => (
+                {paginatedSuppliers.map((supplier, idx) => (
                   <SupplierCard key={supplier.id} supplier={supplier} idx={idx} />
                 ))}
+
+                {/* Pagination Controls */}
+                {totalPages > 1 && (() => {
+                  const getPages = () => {
+                    const pages: (number | string)[] = [];
+                    if (totalPages <= 7) {
+                      for (let i = 1; i <= totalPages; i++) {
+                        pages.push(i);
+                      }
+                    } else {
+                      if (currentPage <= 4) {
+                        pages.push(1, 2, 3, 4, 5, "...", totalPages);
+                      } else if (currentPage >= totalPages - 3) {
+                        pages.push(1, "...", totalPages - 4, totalPages - 3, totalPages - 2, totalPages - 1, totalPages);
+                      } else {
+                        pages.push(1, "...", currentPage - 1, currentPage, currentPage + 1, "...", totalPages);
+                      }
+                    }
+                    return pages;
+                  };
+
+                  const pages = getPages();
+
+                  return (
+                    <div className="flex flex-col items-center justify-center pt-10 pb-6 w-full select-none">
+                      {/* Interactive Minimalist Capsule (Beautiful Red & White Theme with 8px Border Radius) */}
+                      <div className="bg-white border border-red-50/80 rounded-[8px] py-2 px-3.5 sm:px-5 w-auto flex items-center gap-3 shadow-[0_4px_20px_rgba(204,26,38,0.03)] hover:shadow-[0_6px_24px_rgba(204,26,38,0.06)] transition-all duration-300">
+                        
+                        {/* Previous Arrow Button */}
+                        <button
+                          onClick={() => handlePageChange(currentPage - 1)}
+                          disabled={currentPage === 1}
+                          className="flex items-center justify-center w-8 h-8 rounded-[8px] text-[#cc1a26]/75 hover:text-[#cc1a26] hover:bg-red-50/50 disabled:opacity-20 disabled:pointer-events-none transition-all duration-200 cursor-pointer group"
+                          aria-label="Trang trước"
+                        >
+                          <ChevronLeft className="w-4 h-4 text-current group-hover:-translate-x-0.5 transition-transform" />
+                        </button>
+
+                        {/* Page Numbers */}
+                        <div className="flex items-center gap-1 sm:gap-1.5 justify-center">
+                          {pages.map((page, index) => {
+                            if (page === "...") {
+                              return (
+                                <span 
+                                  key={`ellipsis-${index}`} 
+                                  className="text-red-200 font-semibold px-1 select-none text-[14.5px] tracking-wider"
+                                >
+                                  ...
+                                </span>
+                              );
+                            }
+
+                            const pageNum = page as number;
+                            const isCurrent = pageNum === currentPage;
+
+                            return (
+                              <button
+                                key={pageNum}
+                                onClick={() => handlePageChange(pageNum)}
+                                className={`w-8.5 h-8.5 rounded-[8px] font-bold text-[14px] transition-all duration-200 flex items-center justify-center cursor-pointer focus:outline-none
+                                  ${isCurrent 
+                                    ? 'bg-[#cc1a26] text-white shadow-[0_3px_10px_rgba(204,26,38,0.25)] scale-102' 
+                                    : 'text-zinc-600 hover:text-[#cc1a26] bg-transparent hover:bg-red-50/40'
+                                  }
+                                `}
+                              >
+                                {pageNum}
+                              </button>
+                            );
+                          })}
+                        </div>
+
+                        {/* Next Arrow Button */}
+                        <button
+                          onClick={() => handlePageChange(currentPage + 1)}
+                          disabled={currentPage === totalPages}
+                          className="flex items-center justify-center w-8 h-8 rounded-[8px] text-[#cc1a26]/75 hover:text-[#cc1a26] hover:bg-red-50/50 disabled:opacity-20 disabled:pointer-events-none transition-all duration-200 cursor-pointer group"
+                          aria-label="Trang sau"
+                        >
+                          <ChevronRight className="w-4 h-4 text-current group-hover:translate-x-0.5 transition-transform" />
+                        </button>
+                      </div>
+                    </div>
+                  );
+                })()}
               </motion.div>
             )}
           </AnimatePresence>
@@ -178,13 +304,13 @@ export default function ProductsPage() {
         filteredCount={filteredSuppliers.length}
         resetFilters={resetFilters}
         selectedCategory={selectedCategory}
-        setSelectedCategory={setSelectedCategory}
+        setSelectedCategory={handleCategoryChange}
         selectedLocation={selectedLocation}
-        setSelectedLocation={setSelectedLocation}
+        setSelectedLocation={handleLocationChange}
         selectedRating={selectedRating}
-        setSelectedRating={setSelectedRating}
+        setSelectedRating={handleRatingChange}
         onlyVerified={onlyVerified}
-        setOnlyVerified={setOnlyVerified}
+        setOnlyVerified={handleOnlyVerifiedChange}
       />
     </div>
     </div>

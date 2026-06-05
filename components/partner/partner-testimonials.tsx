@@ -14,7 +14,7 @@ import "swiper/css/free-mode";
 const TESTIMONIALS_DATA = {
   topRow: [
     {
-      text: "Từ khi hợp tác với Phú Khang, tiến độ công trình của chúng tôi luôn được đảm bảo. Nguồn cung ổn định và chất lượng gạch ốp lát tuyệt vời.",
+      text: "Từ khi hợp tác với Nguyễn Vinh, tiến độ công trình của chúng tôi luôn được đảm bảo. Nguồn cung ổn định và chất lượng gạch ốp lát tuyệt vời.",
       author: "Nguyễn Văn Tuấn",
       role: "Giám đốc dự án, Kiến Trúc Việt",
       rating: "5.0",
@@ -30,14 +30,14 @@ const TESTIMONIALS_DATA = {
   ],
   bottomRow: [
     {
-      text: "Các mẫu sơn và gạch luôn được cập nhật xu hướng mới nhất. Khách hàng của tôi rất hài lòng với chất lượng hoàn thiện từ sản phẩm của Phú Khang.",
+      text: "Các mẫu sơn và gạch luôn được cập nhật xu hướng mới nhất. Khách hàng của tôi rất hài lòng với chất lượng hoàn thiện từ sản phẩm của Nguyễn Vinh.",
       author: "Lê Hoàng Tách",
       role: "Thầu xây dựng dân dụng",
       rating: "5.0",
       avatarUrl: "https://picsum.photos/seed/tach/100/100"
     },
     {
-      text: "Hệ thống đặt hàng trực tuyến tiện lợi, minh bạch mọi thông tin công nợ. Phú Khang thực sự là người bạn đồng hành đáng tin cậy.",
+      text: "Hệ thống đặt hàng trực tuyến tiện lợi, minh bạch mọi thông tin công nợ. Nguyễn Vinh thực sự là người bạn đồng hành đáng tin cậy.",
       author: "Phạm Hữu Phát",
       role: "CEO, Xây Dựng Phát Đạt",
       rating: "4.8",

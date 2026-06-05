@@ -1,13 +1,18 @@
 "use client";
 
+import React, { useState } from "react";
 import { motion } from "motion/react";
 import { staggerContainer } from "@/lib/animations";
 import { ebooks } from "@/lib/data-ebooks";
 import { EbookCard } from "./ebook-card";
+import { EbookViewer } from "./ebook-viewer";
 
 export function EbookList() {
+  const [activeEbook, setActiveEbook] = useState<any>(null);
+
   return (
-    <section className="w-full bg-white py-16 md:py-20 lg:py-24">
+    <>
+      <section className="w-full bg-white py-16 md:py-20 lg:py-24">
       <div className="max-w-[1240px] mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div 
           initial={{ opacity: 0, y: 30 }}
@@ -39,10 +44,18 @@ export function EbookList() {
               category={ebook.category}
               description={ebook.description}
               image={ebook.image}
+              onClick={() => setActiveEbook(ebook)}
             />
           ))}
         </motion.div>
       </div>
     </section>
+
+    <EbookViewer 
+      isOpen={!!activeEbook} 
+      onClose={() => setActiveEbook(null)} 
+      ebookData={activeEbook} 
+    />
+    </>
   );
 }

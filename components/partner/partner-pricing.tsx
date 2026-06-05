@@ -8,8 +8,8 @@ import { staggerContainer, fadeInUp } from "@/lib/animations";
 interface PricingPlan {
   name: string;
   badge: string;
-  monthlyPrice: string;
-  annualPrice: string;
+  price: string;
+  originalPrice: string | null;
   description: string;
   ctaText: string;
   ctaActionId: string;
@@ -20,59 +20,54 @@ interface PricingPlan {
 
 const PRICING_PLANS: PricingPlan[] = [
   {
-    name: "STARTER",
-    badge: "KHỞI ĐẦU",
-    monthlyPrice: "750K",
-    annualPrice: "600K",
-    description: "Giải pháp tinh gọn cho tổ thợ, kiến trúc sư & nhà thầu nhỏ mới hợp tác.",
-    ctaText: "Đăng Ký Starter",
+    name: "CƠ BẢN",
+    badge: "GIẢM 50% LẦN ĐẦU",
+    price: "79K",
+    originalPrice: "150k",
+    description: "Giải pháp cho nhà bán hàng mới, hiện diện cơ bản trên nền tảng.",
+    ctaText: "Đăng Ký Khởi Điểm",
     ctaActionId: "registration-form-section",
     features: [
-      "Chiết khấu khởi điểm 15%",
-      "Cấp 2 cuốn catalogue chất liệu in nổi",
-      "Vận chuyển tiêu chuẩn công trình",
-      "Hỗ trợ kỹ thuật qua hotline",
-      "Tích lũy doanh số hạng Đồng",
+      "Hiển thị mặc định khi tìm kiếm & bộ lọc",
+      "Tần số xuất hiện tại đề xuất ở mức thấp",
+      "Cơ bản tiếp cận khách hàng",
     ],
-    limitLabel: "Quy mô <1 Tỷ",
+    limitLabel: "Tiết kiệm 50% tháng đầu",
   },
   {
-    name: "PRO",
-    badge: "ĐỐI TÁC CHUYÊN NGHIỆP",
-    monthlyPrice: "1.9M",
-    annualPrice: "1.5M",
-    description: "Đại lý phân phối cấp 2, cửa hàng trưng bày chính thức của Phú Khang.",
-    ctaText: "Đăng Ký Bản Pro",
+    name: "HIỆN DIỆN",
+    badge: "TỐI ƯU HIỂN THỊ",
+    price: "399K",
+    originalPrice: null,
+    description: "Giải pháp tiêu chuẩn giúp tăng trải nghiệm khách hàng và độ phủ.",
+    ctaText: "Đăng Ký Ngay",
     ctaActionId: "registration-form-section",
     isPopular: true,
     features: [
-      "Chiết khấu sỉ bứt phá 25% - 30%",
-      "Tặng kệ vỉ đá thực tế & biển hiệu đại lý",
-      "Ưu tiên cấp lô hàng giới hạn quốc tế",
-      "Hỗ trợ xe bồn/xe cẩu giao hàng thần tốc",
-      "Thưởng doanh thu tháng/quý đạt mốc",
-      "Ý kiến kỹ sư khảo sát thực địa trực tiếp",
-      "Quảng bá đại lý trên bản đồ hệ thống",
+      "Ưu tiên hiển thị trên gói Cơ Bản",
+      "Ghim vị trí trong kết quả tìm kiếm",
+      "Badge xác minh doanh nghiệp chính thức",
+      "Hạn chế hồ sơ trùng/giả mạo",
+      "Xuất hiện trong category/trang liên quan",
     ],
-    limitLabel: "Doanh số >200M/th",
+    limitLabel: "Phù hợp mọi quy mô",
   },
   {
-    name: "ENTERPRISE",
+    name: "PHỦ SÓNG",
     badge: "DOANH NGHIỆP VIP",
-    monthlyPrice: "Liên Hệ",
-    annualPrice: "Liên Hệ",
-    description: "Nhà thầu xây dựng quy mô lớn, tổng thầu dự án và tập đoàn đầu tư hạ tầng.",
-    ctaText: "Gửi Yêu Cầu Doanh Nghiệp",
+    price: "3.799M",
+    originalPrice: null,
+    description: "Giải pháp toàn diện chuyên sâu, độc quyền và tối đa tỷ lệ chuyển đổi.",
+    ctaText: "Yêu Cầu Gói Phủ Sóng",
     ctaActionId: "registration-form-section",
     features: [
-      "Chiết khấu kịch khung từ 30% - 35%",
-      "Hợp đồng bảo hộ độc quyền khu vực sỉ",
-      "Gia hạn công nợ linh hoạt đến 45 ngày",
-      "Điều chỉnh kích thước/gia công riêng biệt",
-      "Cơ chế bồi hoàn bảo hành từ nhà máy",
-      "Quản lý chuyên trách vip hỗ trợ 24/7",
+      "Hiển thị ưu tiên (Ngành + Khu Vực)",
+      "Banner/Block tài trợ, bài PR riêng",
+      "Làm nổi bật năng lực, khu vực cung ứng",
+      "Ghim sản phẩm chủ lực trên profile",
+      "Xuất hiện trong chiến dịch ngành lớn",
     ],
-    limitLabel: "Dự án lớn/Đại công trình",
+    limitLabel: "Tối đa hóa chuyển đổi",
   },
 ];
 
@@ -129,42 +124,51 @@ interface ComparisonCategory {
 
 const COMPARISON_CATEGORIES: ComparisonCategory[] = [
   {
-    title: "USER & AGENT CAPABILITIES",
+    title: "ƯU TIÊN HIỂN THỊ",
     rows: [
-      { name: "Active Agents", starter: "1", pro: "Up to 5", enterprise: "Unlimited" },
-      { name: "Team Collaboration", starter: "—", pro: "Included (up to 5 users)", enterprise: "Unlimited users" },
-      { name: "Custom Roles & Permissions", starter: "—", pro: "Basic access control", enterprise: "Full RBAC & SSO support" }
+      { name: "Thứ tự hiển thị khi tìm kiếm thông thường", starter: "Mặc Định", pro: "Trên Gói Cơ Bản", enterprise: "Trên Gói Hiện Diện" },
+      { name: "Ưu tiên hiển thị khi tìm kiếm bằng bộ lọc", starter: "Mặc Định", pro: "Khu Vực", enterprise: "Ngành + Khu Vực" },
+      { name: "Ghim vị trí trong kết quả tìm kiếm", starter: "Không", pro: "Có", enterprise: "Có" },
+      { name: "Tần suất xuất hiện trong các vị trí đề xuất", starter: "Thấp", pro: "Trung Bình", enterprise: "Cao" },
+      { name: "Mức độ cạnh tranh khách hàng", starter: "Cao", pro: "Trung Bình", enterprise: "Thấp" }
     ]
   },
   {
-    title: "INTEGRATIONS & DEPLOYMENT",
+    title: "BADGE & HỒ SƠ",
     rows: [
-      { name: "Tool Integrations", starter: "Up to 2", pro: "Unlimited", enterprise: "Unlimited & priority setup" },
-      { name: "Channels Supported", starter: "Slack, Docs", pro: "Email, Web widgets", enterprise: "All channels incl. Voice,\nWhatsApp" },
-      { name: "Custom Domain & Branding", starter: "—", pro: "White-label available", enterprise: "Full customization" }
+      { name: "Badge xác minh doanh nghiệp", starter: "Không", pro: "Có", enterprise: "Có" },
+      { name: "Kiểu profile card trong danh sách", starter: "Không", pro: "Có", enterprise: "Có" },
+      { name: "Hồ sơ chính thức của doanh nghiệp", starter: "Không", pro: "Có", enterprise: "Có" },
+      { name: "Hạn chế hồ sơ trùng / giả mạo", starter: "Không", pro: "Có", enterprise: "Có" },
+      { name: "Giảm hiển thị đối thủ trong profile", starter: "Không", pro: "Có", enterprise: "Có" }
     ]
   },
   {
-    title: "AI CAPABILITIES & USAGE LIMITS",
+    title: "ĐỊA ĐIỂM HIỂN THỊ",
     rows: [
-      { name: "Monthly Task / Message Limit", starter: "500", pro: "Up to 10,000", enterprise: "Custom / Unlimited" },
-      { name: "Outcome-based Pricing Option", starter: "—", pro: "Optional add-on", enterprise: "Available as custom model" },
-      { name: "Knowledge Base (Storage)", starter: "15GB", pro: "50GB", enterprise: "100+ GB" },
-      { name: "Outcome Tracking & Analytics", starter: "Basic logs", pro: "7-day detailed logs", enterprise: "Custom retention, dashboards" }
+      { name: "Sponsored slot trong category / trang liên quan", starter: "Không", pro: "Có", enterprise: "Có" },
+      { name: "Xuất hiện trong khu vực “Được tài trợ”", starter: "Không", pro: "Không", enterprise: "Có" },
+      { name: "Ghim ở vị trí quảng bá riêng", starter: "Không", pro: "Không", enterprise: "Có" },
+      { name: "Banner / block tài trợ theo ngành", starter: "Không", pro: "Không", enterprise: "Có" },
+      { name: "Bài giới thiệu doanh nghiệp / supplier spotlight", starter: "Không", pro: "Không", enterprise: "Có" },
+      { name: "Xuất hiện trong chiến dịch quảng bá theo ngành", starter: "Không", pro: "Không", enterprise: "Có" }
     ]
   },
   {
-    title: "SECURITY, COMPLIANCE & SUPPORT",
+    title: "SẢN PHẨM & NĂNG LỰC",
     rows: [
-      { name: "Support Level", starter: "Community only", pro: "Priority support", enterprise: "SLA-backed + dedicated CSM" },
-      { name: "Compliance & Certifications", starter: "—", pro: "SOC 2 / ISO 27001 available", enterprise: "Full compliance support" },
-      { name: "Data Residency & Hosting", starter: "Standard cloud", pro: "Custom region options", enterprise: "On-premise / hybrid by request" }
+      { name: "Ghim sản phẩm chủ lực trên profile", starter: "Không", pro: "Không", enterprise: "Có" },
+      { name: "Làm nổi bật nhóm sản phẩm chính", starter: "Không", pro: "Không", enterprise: "Có" },
+      { name: "Làm nổi bật năng lực cung ứng", starter: "Không", pro: "Không", enterprise: "Có" },
+      { name: "Hiển thị tag năng lực: nhà máy, kho sẵn, phân phối toàn quốc", starter: "Không", pro: "Không", enterprise: "Có" },
+      { name: "Làm nổi bật khu vực cung ứng chính", starter: "Không", pro: "Không", enterprise: "Có" },
+      { name: "Làm nổi bật ứng dụng sản phẩm", starter: "Không", pro: "Không", enterprise: "Có" },
+      { name: "Ưu tiên sản phẩm trong danh sách liên quan", starter: "Không", pro: "Không", enterprise: "Có" }
     ]
   }
 ];
 
 export function PartnerPricing() {
-  const [isAnnual, setIsAnnual] = useState(true);
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const isDown = useRef(false);
   const startX = useRef(0);
@@ -332,57 +336,8 @@ export function PartnerPricing() {
       <IsometricGridLeft />
       <IsometricGridRight />
 
-      <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 mt-10">
         
-        {/* Toggle Switch Container - Precisely 1:1 with reference design screenshot */}
-        <motion.div 
-          initial={{ opacity: 0, y: 15 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5, ease: "easeOut" }}
-          className="flex justify-center items-center mb-10 sm:mb-14"
-        >
-          <div className="bg-white border border-gray-100/90 px-4 sm:px-5 py-2.5 rounded-full flex items-center shadow-[0_3px_12px_rgba(0,0,0,0.025)] select-none whitespace-nowrap overflow-x-auto sm:overflow-visible">
-            <span 
-              onClick={() => setIsAnnual(false)}
-              className={`text-[12px] sm:text-sm font-bold tracking-tight cursor-pointer transition-colors duration-200 mr-2 sm:mr-3 ${
-                !isAnnual ? "text-[#111111]" : "text-gray-400 hover:text-gray-600"
-              }`}
-            >
-              Hàng Tháng
-            </span>
-            
-            {/* Smooth spring sliding Toggle */}
-            <div 
-              onClick={() => setIsAnnual(!isAnnual)}
-              className={`relative shrink-0 w-[42px] sm:w-11 h-[22px] sm:h-6 rounded-full flex items-center p-0.5 cursor-pointer flex-none transition-colors duration-350 ${
-                isAnnual ? "bg-[#ff4130]" : "bg-gray-300"
-              }`}
-            >
-              <motion.div 
-                layout
-                transition={{ type: "spring", stiffness: 450, damping: 28 }}
-                className={`w-[16px] h-[16px] sm:w-[18px] sm:h-[18px] bg-white rounded-full shadow-md ${
-                  isAnnual ? "ml-auto" : "mr-auto"
-                }`}
-              />
-            </div>
-
-            <span 
-              onClick={() => setIsAnnual(true)}
-              className={`text-[12px] sm:text-sm font-bold tracking-tight cursor-pointer transition-colors duration-200 ml-2 sm:ml-3 mr-2 text-left sm:text-center ${
-                isAnnual ? "text-[#111111]" : "text-gray-400 hover:text-gray-600"
-              }`}
-            >
-              Hàng Năm
-            </span>
-
-            <span className="bg-[#ffebeb] text-[#ff4130] text-[9.5px] sm:text-[11px] font-extrabold px-1.5 sm:px-2 py-0.5 rounded-md tracking-tight font-sans shrink-0">
-              -20%
-            </span>
-          </div>
-        </motion.div>
-
         {/* Pricing Cards Grid */}
         <motion.div
           variants={staggerContainer}
@@ -392,8 +347,8 @@ export function PartnerPricing() {
           className="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-10 max-w-6xl mx-auto items-stretch"
         >
           {PRICING_PLANS.map((plan) => {
-            const hasStaticPrice = plan.monthlyPrice === "Liên Hệ";
-            const priceVal = isAnnual ? plan.annualPrice : plan.monthlyPrice;
+            const hasStaticPrice = plan.price === "Liên Hệ";
+            const priceVal = plan.price;
 
             return (
               <motion.div
@@ -434,22 +389,29 @@ export function PartnerPricing() {
                           Liên Hệ
                         </span>
                       ) : (
-                        <div className="flex items-baseline h-full pt-1.5 overflow-hidden">
-                          <AnimatePresence mode="wait">
-                            <motion.span
-                              key={priceVal}
-                              initial={{ y: 20, opacity: 0 }}
-                              animate={{ y: 0, opacity: 1 }}
-                              exit={{ y: -20, opacity: 0 }}
-                              transition={{ duration: 0.22, ease: [0.16, 1, 0.3, 1] }}
-                              className="text-4xl sm:text-[46px] font-extrabold text-[#111111] tracking-tight leading-none self-end inline-block"
-                            >
-                              {priceVal}
-                            </motion.span>
-                          </AnimatePresence>
-                          <span className="text-gray-400 text-xs sm:text-sm font-semibold self-end pb-1 font-medium select-none ml-1">
-                            /tháng
-                          </span>
+                        <div className="flex flex-col pt-1.5 overflow-hidden w-full">
+                          <div className="flex items-baseline gap-2">
+                            {plan.originalPrice && (
+                              <span className="text-gray-400 text-[18px] sm:text-[20px] font-semibold line-through decoration-gray-300 decoration-2 self-end pb-1.5 inline-block">
+                                {plan.originalPrice}
+                              </span>
+                            )}
+                            <AnimatePresence mode="wait">
+                              <motion.span
+                                key={priceVal}
+                                initial={{ y: 20, opacity: 0 }}
+                                animate={{ y: 0, opacity: 1 }}
+                                exit={{ y: -20, opacity: 0 }}
+                                transition={{ duration: 0.22, ease: [0.16, 1, 0.3, 1] }}
+                                className="text-4xl sm:text-[46px] font-extrabold text-[#111111] tracking-tight leading-none self-end inline-block"
+                              >
+                                {priceVal}
+                              </motion.span>
+                            </AnimatePresence>
+                            <span className="text-gray-400 text-xs sm:text-sm font-semibold self-end pb-1 font-medium select-none ml-1">
+                              /tháng
+                            </span>
+                          </div>
                         </div>
                       )}
                     </div>
@@ -819,14 +781,14 @@ export function PartnerPricing() {
           {/* Section Header with exact reference badge and typography */}
           <div className="text-center mb-8 sm:mb-14">
             <span className="inline-block px-3.5 py-1 bg-white border border-[#f3f3f5] rounded-md text-[10px] font-extrabold text-[#ff3b30] tracking-[0.18em] uppercase font-mono mb-4 shadow-[0_1px_2px_rgba(0,0,0,0.015)] select-none">
-              COMPARISON
+               SO SÁNH GÓI
             </span>
             <h3 className="text-3xl sm:text-[44px] font-black text-gray-950 tracking-[-0.03em] leading-[1.12] font-sans max-w-3xl mx-auto">
-              Pick the perfect plan to launch your <br className="hidden sm:inline" />
-              <span className="text-[#8e8e93] font-extrabold">AI buddies at any scale</span>
+              Cân nhắc quyền lợi chi tiết <br className="hidden sm:inline" />
+              <span className="text-[#8e8e93] font-extrabold">cho giải pháp nâng cao</span>
             </h3>
             <p className="text-[#8e8e93] text-[14px] sm:text-[15px] font-semibold max-w-3xl mx-auto mt-4 leading-relaxed font-sans px-2">
-              Whether you&apos;re just getting started or scaling AI across your organization, Saber offers flexible plans designed for every stage of growth.
+              Dưới đây là so sánh các tính năng cốt lõi giữa 3 gói Cơ Bản, Hiện Diện và Phủ Sóng.
             </p>
           </div>
 
@@ -857,34 +819,34 @@ export function PartnerPricing() {
                 
                 {/* Column STARTER */}
                 <div className="text-center flex flex-col items-center">
-                  <span className="text-[17px] sm:text-[19px] font-bold text-gray-950 tracking-tight font-sans select-none mb-3">Starter Plan</span>
+                  <span className="text-[17px] sm:text-[19px] font-bold text-gray-950 tracking-tight font-sans select-none mb-3">Gói Cơ Bản</span>
                   <button
                     onClick={() => handleCtaClick("registration-form-section")}
                     className="w-full max-w-[130px] py-2 bg-white border border-gray-200/80 hover:border-gray-500 text-gray-800 hover:text-gray-950 text-xs font-semibold rounded-full transition-all shadow-[0_1px_2.5px_rgba(0,0,0,0.035)] select-none cursor-pointer active:scale-95"
                   >
-                    Get Started
+                    Đăng Ký
                   </button>
                 </div>
 
                 {/* Column PRO (Growth Plan) */}
                 <div className="text-center flex flex-col items-center px-4">
-                  <span className="text-[17px] sm:text-[19px] font-bold text-gray-950 tracking-tight font-sans select-none mb-3">Growth Plan</span>
+                  <span className="text-[17px] sm:text-[19px] font-bold text-gray-950 tracking-tight font-sans select-none mb-3">Gói Hiện Diện</span>
                   <button
                     onClick={() => handleCtaClick("registration-form-section")}
                     className="w-full max-w-[130px] py-2 bg-white border border-gray-200/80 hover:border-gray-500 text-gray-800 hover:text-gray-950 text-xs font-semibold rounded-full transition-all shadow-[0_1px_2.5px_rgba(0,0,0,0.035)] select-none cursor-pointer active:scale-95"
                   >
-                    Get Started
+                    Đăng Ký
                   </button>
                 </div>
 
                 {/* Column ENTERPRISE */}
                 <div className="text-center flex flex-col items-center">
-                  <span className="text-[17px] sm:text-[19px] font-bold text-gray-950 tracking-tight font-sans select-none mb-3">Enterprise Plan</span>
+                  <span className="text-[17px] sm:text-[19px] font-bold text-gray-950 tracking-tight font-sans select-none mb-3">Gói Phủ Sóng</span>
                   <button
                     onClick={() => handleCtaClick("registration-form-section")}
                     className="w-full max-w-[130px] py-2 bg-white border border-gray-200/80 hover:border-gray-500 text-gray-800 hover:text-gray-950 text-xs font-semibold rounded-full transition-all shadow-[0_1px_2.5px_rgba(0,0,0,0.035)] select-none cursor-pointer active:scale-95"
                   >
-                    Get Started
+                    Đăng Ký
                   </button>
                 </div>
               </div>

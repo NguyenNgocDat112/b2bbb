@@ -51,68 +51,68 @@ export const SupplierCard = React.memo(({ supplier, idx }: { supplier: Supplier;
           {/* Left Block */}
           <div className="flex flex-col gap-1 lg:border-r border-gray-200/85 lg:pr-3">
             <div className="flex flex-row items-start group/info">
-              <div className="w-[85px] lg:w-[90px] shrink-0 font-bold flex items-center gap-1.5 text-slate-500 uppercase tracking-wider text-[10px] h-5">
+              <div className="w-[85px] lg:w-[90px] shrink-0 font-bold flex items-center gap-1.5 text-black uppercase tracking-wider text-[10px] h-5">
                 <MapPin className="w-[13px] h-[13px]" strokeWidth={2.5}/>
                 Khu Vực
               </div>
-              <div className="font-semibold text-gray-900 leading-normal break-words flex-1 pl-3">{supplier.location}</div>
+              <div className="font-semibold text-black leading-normal break-words flex-1 pl-3">{supplier.location}</div>
             </div>
             <div className="flex flex-row items-start group/info">
-              <div className="w-[85px] lg:w-[90px] shrink-0 font-bold flex items-center gap-1.5 text-slate-500 uppercase tracking-wider text-[10px] h-5">
+              <div className="w-[85px] lg:w-[90px] shrink-0 font-bold flex items-center gap-1.5 text-black uppercase tracking-wider text-[10px] h-5">
                 <Building className="w-[13px] h-[13px]" strokeWidth={2.5}/>
                 Địa Chỉ
               </div>
-              <div className="font-medium text-gray-800 leading-snug break-words flex-1 pl-3" title={supplier.address}>
+              <div className="font-medium text-black leading-snug break-words flex-1 pl-3" title={supplier.address}>
                 {supplier.address}
               </div>
             </div>
             <div className="flex flex-row items-start group/info">
-              <div className="w-[85px] lg:w-[90px] shrink-0 font-bold flex items-center gap-1.5 text-slate-500 uppercase tracking-wider text-[10px] h-5">
+              <div className="w-[85px] lg:w-[90px] shrink-0 font-bold flex items-center gap-1.5 text-black uppercase tracking-wider text-[10px] h-5">
                 <Phone className="w-[13px] h-[13px]" strokeWidth={2.5}/>
                 SĐT
               </div>
-              <div className="font-bold text-gray-900 leading-snug break-words flex-1 pl-3">{supplier.phone} - {supplier.representative}</div>
+              <div className="font-bold text-black leading-snug break-words flex-1 pl-3">{supplier.phone} - {supplier.representative}</div>
             </div>
             <div className="flex flex-row items-start group/info">
-              <div className="w-[85px] lg:w-[90px] shrink-0 font-bold flex items-center gap-1.5 text-slate-500 uppercase tracking-wider text-[10px] h-5">
+              <div className="w-[85px] lg:w-[90px] shrink-0 font-bold flex items-center gap-1.5 text-black uppercase tracking-wider text-[10px] h-5">
                 <Mail className="w-[13px] h-[13px]" strokeWidth={2.5}/>
                 Gmail
               </div>
-              <div className="font-medium text-gray-800 leading-normal break-all flex-1 pl-3 hover:text-[#cc1a26] transition-colors cursor-pointer" title={supplier.email}>{supplier.email}</div>
+              <div className="font-medium text-black leading-normal break-all flex-1 pl-3 hover:text-[#cc1a26] transition-colors cursor-pointer" title={supplier.email}>{supplier.email}</div>
             </div>
           </div>
 
           {/* Right Block */}
           <div className="flex flex-col gap-1 lg:pl-3">
             <div className="flex flex-row items-start group/info">
-              <div className="w-[85px] lg:w-[90px] shrink-0 font-bold flex items-center gap-1.5 text-slate-500 uppercase tracking-wider text-[10px] h-5">
+              <div className="w-[85px] lg:w-[90px] shrink-0 font-bold flex items-center gap-1.5 text-black uppercase tracking-wider text-[10px] h-5">
                 <Briefcase className="w-[13px] h-[13px]" strokeWidth={2.5}/>
                 Mô Hình
               </div>
-              <div className="font-semibold text-gray-900 leading-snug break-words flex-1 pl-3">{supplier.productsScale}</div>
+              <div className="font-semibold text-black leading-snug break-words flex-1 pl-3">{supplier.productsScale}</div>
             </div>
             <div className="flex flex-row items-start group/info">
-              <div className="w-[85px] lg:w-[90px] shrink-0 font-bold flex items-center gap-1.5 text-slate-500 uppercase tracking-wider text-[10px] h-5">
+              <div className="w-[85px] lg:w-[90px] shrink-0 font-bold flex items-center gap-1.5 text-black uppercase tracking-wider text-[10px] h-5">
                 <Factory className="w-[13px] h-[13px]" strokeWidth={2.5}/>
                 Quy Mô
               </div>
-              <div className="font-medium text-gray-800 leading-snug whitespace-pre-line break-words flex-1 pl-3">
+              <div className="font-medium text-black leading-snug whitespace-pre-line break-words flex-1 pl-3">
                 {supplier.scaleDetails}
               </div>
             </div>
             <div className="flex flex-row items-start group/info">
-              <div className="w-[85px] lg:w-[90px] shrink-0 font-bold flex items-center gap-1.5 text-slate-500 uppercase tracking-wider text-[10px] h-5">
+              <div className="w-[85px] lg:w-[90px] shrink-0 font-bold flex items-center gap-1.5 text-black uppercase tracking-wider text-[10px] h-5">
                 <Users className="w-[13px] h-[13px]" strokeWidth={2.5}/>
                 Bộ Phận
               </div>
-              <div className="font-bold text-gray-900 leading-snug break-words flex-1 pl-3">{supplier.departmentPhone} - {supplier.representative}</div>
+              <div className="font-bold text-black leading-snug break-words flex-1 pl-3">{supplier.departmentPhone} - {supplier.representative}</div>
             </div>
             <div className="flex flex-row items-start group/info">
-              <div className="w-[85px] lg:w-[90px] shrink-0 font-bold flex items-center gap-1.5 text-slate-500 uppercase tracking-wider text-[10px] h-5">
+              <div className="w-[85px] lg:w-[90px] shrink-0 font-bold flex items-center gap-1.5 text-black uppercase tracking-wider text-[10px] h-5">
                 <Mail className="w-[13px] h-[13px]" strokeWidth={2.5}/>
                 Gmail
               </div>
-              <div className="font-medium text-gray-800 leading-normal break-all flex-1 pl-3 hover:text-[#cc1a26] transition-colors cursor-pointer" title={supplier.email}>{supplier.email}</div>
+              <div className="font-medium text-black leading-normal break-all flex-1 pl-3 hover:text-[#cc1a26] transition-colors cursor-pointer" title={supplier.email}>{supplier.email}</div>
             </div>
           </div>
         </div>

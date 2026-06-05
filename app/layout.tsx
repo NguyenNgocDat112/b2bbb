@@ -18,8 +18,8 @@ const notoSerif = Noto_Serif({
 
 export const metadata: Metadata = {
   title: {
-    template: '%s | Vật Liệu Xây Dựng Phú Khang',
-    default: 'Vật Liệu Xây Dựng Phú Khang - Phân phối Sỉ & Lẻ Toàn Quốc',
+    template: '%s | VLXD Nguyễn Vinh',
+    default: 'VLXD Nguyễn Vinh - Vật Liệu Xây Dựng Uy Tín',
   },
   description: 'Nhà phân phối sỉ lẻ vật liệu xây dựng cao cấp hàng đầu: Gạch ốp lát, thiết bị vệ sinh, sơn chống thấm, sắt thép, xi măng nội ngoại nhập.',
 };

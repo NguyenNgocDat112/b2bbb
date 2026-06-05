@@ -38,7 +38,7 @@ export function PartnerHero() {
           variants={fadeInUp} 
           className="text-gray-500 text-[12.5px] sm:text-sm md:text-[15px] leading-relaxed max-w-2xl mt-8 sm:mt-8 px-2 sm:px-8 font-medium selection:bg-[#cc2424]/10"
         >
-          Trở thành đối tác chính thức của Vật Liệu Phú Khang để tiếp cận nguồn hàng cao cấp, 
+          Trở thành đối tác chính thức của Nguyễn Vinh để tiếp cận nguồn hàng cao cấp, 
           mức chiết khấu đặc quyền tốt nhất thị trường cùng hạ tầng giao nhận xuất sắc tại công trình.
         </motion.p>
 
